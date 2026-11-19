@@ -41,7 +41,7 @@ begin
 			rs2_addr <= std_logic_vector(to_unsigned(32 - i, 5)); -- check if data2 listens to rs1_addr
 			wait for 1 ns;
 			assert data1 = std_logic_vector(to_unsigned(i + 100, 32)) report "data1, register " & integer'image(i) & " is " & to_hstring(data1) severity error;
-			assert data2 = std_logic_vector(to_unsigned(i + 100, 32)) report "data2, register " & integer'image(i) & " is " & to_hstring(data2) severity error;
+			assert data2 = std_logic_vector(to_unsigned((32 - i) + 100, 32)) report "data2, register " & integer'image(i) & " is " & to_hstring(data2) severity error;
 		end loop;
 		
 		-- Zero check
