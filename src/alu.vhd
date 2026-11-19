@@ -17,7 +17,7 @@ end entity alu;
 
 architecture behavioural of alu is
     begin
-        process(a, b, op_alu)
+        process(all)
         variable shamt : natural range 0 to 31;
         begin
             shamt := to_integer(unsigned(b(4 downto 0))); -- RV32I uses the least 5 significant bits of the second shift operand.

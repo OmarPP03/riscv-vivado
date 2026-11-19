@@ -12,4 +12,12 @@ package rv_pkg is
         ALU_SRA,  -- Shift Right Arithemetic (keeps sign bit)
         ALU_AND, ALU_XOR, ALU_OR
     );
+	
+	type imm_selector is(
+		IMM_I,  -- One source, one immediate
+		IMM_S,  -- Store operations
+		IMM_B,  -- Branch operations
+		IMM_U,  -- LUI instructions: lui, auipc
+		IMM_J   -- Jump operations: jal
+	);
 end package rv_pkg;

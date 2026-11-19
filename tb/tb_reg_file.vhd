@@ -62,7 +62,7 @@ begin
 		wait for 1 ns;
 		assert data1 = std_logic_vector(to_unsigned(105, 32)) report "write with w_enable=0. r5 is " & to_hstring(data1) severity error;
 	
-        report "tb_reg_file: tests finished";
+        report "tb_reg_file: tests finished.";
         done <= true;
         wait;
     end process;

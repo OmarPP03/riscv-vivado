@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;    
 use ieee.numeric_std.all;       
-use work.rv_pkg.all;
+use work.rv_pkg.all
 
 entity tb_alu is
 end entity;
