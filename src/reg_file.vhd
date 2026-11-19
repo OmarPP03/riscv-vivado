@@ -20,7 +20,7 @@ architecture behavioural of register_file is
 	-- Create signal for the registers. Every element of the array is 0 for now
 	signal regs : reg_array := (others => (others => '0'));
 	begin
-		-- Only sensible value 
+		-- Only sensible value is the clock for writing
 		process(clk)
 		begin
 			if rising_edge(clk) then
@@ -29,7 +29,7 @@ architecture behavioural of register_file is
 				end if;
 			end if;
 		end process;
-		-- Reading is combinational, no need to wait for the clock
+		-- Reading is combinational, no need to wait for clock
 		data1 <= (others => '0') when rs1_addr = "00000" else regs(to_integer(unsigned(rs1_addr)));
 		data2 <= (others => '0') when rs2_addr = "00000" else regs(to_integer(unsigned(rs2_addr)));
 end architecture;
