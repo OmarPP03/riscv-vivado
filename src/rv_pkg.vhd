@@ -20,4 +20,16 @@ package rv_pkg is
 		IMM_U,  -- LUI instructions: lui, auipc
 		IMM_J   -- Jump operations: jal
 	);
+
+    type wb_sel is(
+        WB_ALU, -- data sent to reg_file comes from ALU output
+        WB_PC,  -- data sent to reg_file comes from rd
+        WB_MEM; -- data sent to reg_file comes from memory
+    );
+
+    type op1_selector is(
+        OP1_ZERO,  -- used by lui rd, imm (0 + imm)
+        OP1_PC;    -- used by auipc rd, imm (PC + imm)
+        OP1_RS1,   -- every other operand
+    );
 end package rv_pkg;
