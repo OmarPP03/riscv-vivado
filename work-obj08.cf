@@ -1,4 +1,7 @@
 v 4
+file . "tb/tb_i_mem.vhd" "c3bc53ec569e5b7b031eb9a20e3dd0119e43b816" "20261122180044.857":
+  entity tb_instruction_memory at 1( 0) + 0 on 20;
+  architecture behavioural of tb_instruction_memory at 9( 171) + 0 on 21;
 file . "tb/tb_control_unit.vhd" "5a307c8b84b5cfe218d73014b010d0ef20291ab4" "20261121174113.689":
   entity tb_control_unit at 1( 0) + 0 on 14;
   architecture behavioural of tb_control_unit at 9( 165) + 0 on 15;
@@ -7,3 +10,6 @@ file . "src/control_unit.vhd" "9435200020c3f0c6dfda09ae2f0c58647a9d2cf7" "202611
   architecture behavioural of control_unit at 36( 1132) + 0 on 13;
 file . "src/rv_pkg.vhd" "b60cae8f8d0d461b19ac9b0831282c485ba6cb26" "20261121174113.674":
   package rv_pkg at 2( 2) + 0 on 11;
+file . "src/i_mem.vhd" "2a03c6506691d9ab058f81c23b15305746f98008" "20261122180044.851":
+  entity instruction_memory at 1( 0) + 0 on 18;
+  architecture behavioural of instruction_memory at 18( 431) + 0 on 19;
