@@ -37,7 +37,7 @@ architecture behavioural of instruction_memory is
     constant mem : i_array := load_mem(MEM_FILE); -- ROM
 
     begin
-        -- Dont need process since concurrent assignment 
+        -- Concurrent assignment implementation: 
         -- instr <= mem(to_integer(unsigned(addr)));
 
         -- BRAM implementation: synchrounous read
