@@ -43,11 +43,11 @@ architecture behavioural of control_unit is
 				when "0110111" => -- LUI
 				reg_write <= '1'; imm_sel <= IMM_U; op1_sel <= OP1_ZERO; op2_sel <= '1';
 				when "1101111" => -- JAL
-				reg_write <= '1'; imm_sel <= IMM_J; mem_to_reg <= WB_PC; jal <= '1';
+				reg_write <= '1'; imm_sel <= IMM_J; op1_sel <= OP1_PC; op2_sel <= '1'; mem_to_reg <= WB_PC; jal <= '1';
 				when "1100111" => -- JALR
 				reg_write <= '1'; op2_sel <= '1'; mem_to_reg <= WB_PC; jalr <= '1';
 				when "1100011" => -- BRANCH
-				imm_sel <= IMM_B; branch <= '1'; 
+				imm_sel <= IMM_B; op1_sel <= OP1_PC; op2_sel <= '1'; branch <= '1';  
 				when "0000011" => -- LOAD
 				reg_write <= '1'; op2_sel <= '1'; mem_to_reg <= WB_MEM; mem_read <= '1';
 				when "0100011" => -- STORE

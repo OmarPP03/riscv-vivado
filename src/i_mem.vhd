@@ -10,7 +10,8 @@ entity instruction_memory is
     generic (MEM_FILE : string := "program.mem");
     port(
         addr  : in std_logic_vector(9 downto 0);
-        instr : out std_logic_vector(31 downto 0)
+        instr : out std_logic_vector(31 downto 0);
+        clk   : in std_logic
     );
 
 end entity instruction_memory;
@@ -37,7 +38,15 @@ architecture behavioural of instruction_memory is
 
     begin
         -- Dont need process since concurrent assignment 
-        instr <= mem(to_integer(unsigned(addr)));
+        -- instr <= mem(to_integer(unsigned(addr)));
+
+        -- BRAM implementation: synchrounous read
+
+        process(clk) begin
+            if rising_edge(clk) then
+                instr <= mem(to_integer(unsigned(addr)));
+            end if;
+        end process;
 
 end architecture;
 

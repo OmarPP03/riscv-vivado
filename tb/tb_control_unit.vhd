@@ -97,6 +97,8 @@ begin
         assert branch = '1'        report "beq: branch = "     & std_logic'image(branch)       severity error;
         assert imm_sel = IMM_B     report "beq: imm_sel = "    & imm_selector'image(imm_sel)   severity error;
         assert mem_write = '0'     report "beq: mem_write = "  & std_logic'image(mem_write)    severity error;
+        assert op1_sel = OP1_PC report "beq: op1_sel = " & op1_selector'image(op1_sel) severity error;
+        assert op2_sel = '1'    report "beq: op2_sel = " & std_logic'image(op2_sel)    severity error;
 
         instr <= x"001000EF";    -- jal x1, 2048
         wait for 5 ns;
@@ -105,6 +107,8 @@ begin
         assert branch = '0'        report "jal: branch = "     & std_logic'image(branch)       severity error;
         assert imm_sel = IMM_J     report "jal: imm_sel = "    & imm_selector'image(imm_sel)   severity error;
         assert mem_to_reg = WB_PC  report "jal: mem_to_reg = " & wb_sel'image(mem_to_reg)      severity error;
+        assert op1_sel = OP1_PC report "beq: op1_sel = " & op1_selector'image(op1_sel) severity error;
+        assert op2_sel = '1'    report "beq: op2_sel = " & std_logic'image(op2_sel)    severity error;
 
         instr <= x"00008067";    -- jalr x0, 0(x1)
         wait for 5 ns;
