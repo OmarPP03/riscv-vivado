@@ -23,12 +23,12 @@ begin
 
         branch_cond <= '0';
         case funct3 is
-            when "000" => branch_cond <= '1' when rs1 = rs2 else '0';
-            when "001" => branch_cond <= '1' when rs1 /= rs2 else '0';
-            when "100" => branch_cond <= '1' when signed(rs1) < signed(rs2) else '0';
-            when "101" => branch_cond <= '1' when signed(rs1) > signed(rs2) else '0';
-            when "110" => branch_cond <= '1' when unsigned(rs1) < unsigned(rs2) else '0';
-            when "111" => branch_cond <= '1' when unsigned(rs1) > unsigned(rs2) else '0';
+            when "000" => branch_cond <= '1' when rs1 = rs2 else '0';                      -- beq
+            when "001" => branch_cond <= '1' when rs1 /= rs2 else '0';                     -- bneq
+            when "100" => branch_cond <= '1' when signed(rs1) < signed(rs2) else '0';      -- blt
+            when "101" => branch_cond <= '1' when signed(rs1) >= signed(rs2) else '0';     -- bge
+            when "110" => branch_cond <= '1' when unsigned(rs1) < unsigned(rs2) else '0';  -- bltu
+            when "111" => branch_cond <= '1' when unsigned(rs1) >= unsigned(rs2) else '0'; -- bgeu
             when others => null;
         end case;
 
