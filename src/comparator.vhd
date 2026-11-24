@@ -8,7 +8,7 @@ entity comparator is
 
         rs1         : in std_logic_vector(31 downto 0);
         rs2         : in std_logic_vector(31 downto 0);
-        opcode      : in std_logic_vector(2 downto 0);
+        funct3      : in std_logic_vector(2 downto 0);
 
         branch_cond : out std_logic -- take the branch or not
 
@@ -22,7 +22,7 @@ begin
     process(all) begin
 
         branch_cond <= '0';
-        case opcode is
+        case funct3 is
             when "000" => branch_cond <= '1' when rs1 = rs2 else '0';
             when "001" => branch_cond <= '1' when rs1 /= rs2 else '0';
             when "100" => branch_cond <= '1' when signed(rs1) < signed(rs2) else '0';
