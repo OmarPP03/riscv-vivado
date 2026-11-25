@@ -98,11 +98,6 @@ architecture behavioural of cpu is
 
 begin 
 
-	-- Connect wires to port
-	dbg_pc    <= pc;
-	dbg_instr <= instr;
-	dbg_state <= state;
-	
 	-- Initiate instances of every component
 	
 	ime : entity work.instruction_memory(behavioural) generic map (MEM_FILE => MEM_FILE)
@@ -186,5 +181,53 @@ begin
 			mem_w_enable => mem_w_enable,
 			p_state		 => state
 		);
+		
+	-- Connect wires to port
+	dbg_pc    <= pc;
+	dbg_instr <= instr;
+	dbg_state <= state;
+	
+	-- Instruction fields
+	opcode <= instr(6 downto 0);
+	rd     <= instr(11 downto 7);
+	funct3 <= instr(14 downto 12);
+	rs1    <= instr(19 downto 15);
+	rs2    <= instr(24 downto 20);
+	funct7 <= instr(31 downto 25);
+	
+	-- Next PC
+	next_pc <= std_logic_vector(unsigned(pc) + 4);
+	
+	-- ALU mux
+	with op1_sel select alu_a <= (others => '0') when OP1_ZERO, pc when OP1_PC, rs1_q when OP1_RS1;
+	alu_b <= rs2_q when op2_sel = '0' else imm_q;
+	
+	-- rd_value
+	with mem_to_reg select rd_value <= alu_res_q when WB_ALU, mem_out when WB_MEM, next_pc when WB_PC;
+	
+	-- pc_out
+	pc_out <= alu_res_q when (jal = '1' or jalr = '1' or (branch = '1' and branch_cond_q = '1')) else next_pc;
+	
+	-- Clocked process
+	process(clk) begin
+		if rising_edge(clk) then
+			if reset = '1' then
+				pc <= (others => '0');
+			else
+				if pc_load = '1' then
+					pc <= pc_out;                 
+				end if;
+				if state = S_DECODE then
+					rs1_q <= rs1_value;
+					rs2_q <= rs2_value;
+					imm_q <= immediate;
+				end if;
+				if state = S_EXECUTE then
+					alu_res_q 	  <= alu_preresult;
+					branch_cond_q <= branch_cond;
+				end if;
+			end if;
+		end if;
+	end process;
 	
 end architecture;
