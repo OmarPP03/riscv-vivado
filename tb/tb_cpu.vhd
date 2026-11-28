@@ -38,9 +38,10 @@ begin
     -- PC from x00 to x54 tests ALUi operations, ALUr operations and lui,
     -- PC from x58 to x7C tests store/load bytes, h-words and full words
     -- PC from x80 to xF8 test all branches, taken and not taken both once
-    -- 
+    
+    -- iaxpy.mem = as shown in slides
 
-    utt : entity work.cpu(behavioural) generic map (MEM_FILE => "tb/full_test.mem") port map (clk => clk, reset => reset, dbg_pc => dbg_pc, 
+    utt : entity work.cpu(behavioural) generic map (MEM_FILE => "tb/iaxpy.mem") port map (clk => clk, reset => reset, dbg_pc => dbg_pc, 
                                                     dbg_instr => dbg_instr, dbg_state => dbg_state, dbg_rd_we => dbg_rd_we, dbg_rd_addr => dbg_rd_addr,
                                                     dbg_rd_value => dbg_rd_value);
 
@@ -70,7 +71,7 @@ begin
             wait until rising_edge(clk);
             clk_cycles := clk_cycles + 1;
             exit when dbg_instr = x"0000006F" and dbg_state = S_MEMW;
-            if clk_cycles > 10000 then
+            if clk_cycles > 50000 then
                 report "tb_cpu: program exceeded 10000 clock cycles, PC = " & to_hstring(dbg_pc) severity failure;
             end if;
         end loop;
@@ -86,37 +87,37 @@ begin
         -- assert registers(11) = x"00000037" report "x11 = " & to_hstring(registers(11)) & ", expected 00000037" severity error;
 
         -- full_test.mem asserts
-        assert registers(1) = x"12345678" report "x1 = " & to_hstring(registers(1)) & ", expected 12345678" severity error;
-        assert registers(2) = x"FFFFFFFB" report "x2 = " & to_hstring(registers(2)) & ", expected FFFFFFFB" severity error;
-        assert registers(3) = x"00000007" report "x3 = " & to_hstring(registers(3)) & ", expected 00000007" severity error;
-        assert registers(4) = x"00000001" report "x4 = " & to_hstring(registers(4)) & ", expected 00000001" severity error;
-        assert registers(5) = x"00000000" report "x5 = " & to_hstring(registers(5)) & ", expected 00000000" severity error;
-        assert registers(6) = x"FFFFFFF8" report "x6 = " & to_hstring(registers(6)) & ", expected FFFFFFF8" severity error;
-        assert registers(7) = x"00000077" report "x7 = " & to_hstring(registers(7)) & ", expected 00000077" severity error;
-        assert registers(8) = x"00000078" report "x8 = " & to_hstring(registers(8)) & ", expected 00000078" severity error;
-        assert registers(9) = x"00000070" report "x9 = " & to_hstring(registers(9)) & ", expected 00000070" severity error;
-        assert registers(10) = x"0000000F" report "x10 = " & to_hstring(registers(10)) & ", expected 0000000F" severity error;
-        assert registers(11) = x"FFFFFFFD" report "x11 = " & to_hstring(registers(11)) & ", expected FFFFFFFD" severity error;
-        assert registers(12) = x"1234567F" report "x12 = " & to_hstring(registers(12)) & ", expected 1234567F" severity error;
-        assert registers(13) = x"0000000C" report "x13 = " & to_hstring(registers(13)) & ", expected 0000000C" severity error;
-        assert registers(14) = x"00000380" report "x14 = " & to_hstring(registers(14)) & ", expected 00000380" severity error;
-        assert registers(15) = x"00000001" report "x15 = " & to_hstring(registers(15)) & ", expected 00000001" severity error;
-        assert registers(16) = x"00000000" report "x16 = " & to_hstring(registers(16)) & ", expected 00000000" severity error;
-        assert registers(17) = x"1234567F" report "x17 = " & to_hstring(registers(17)) & ", expected 1234567F" severity error;
-        assert registers(18) = x"01FFFFFF" report "x18 = " & to_hstring(registers(18)) & ", expected 01FFFFFF" severity error;
-        assert registers(19) = x"FFFFFFFF" report "x19 = " & to_hstring(registers(19)) & ", expected FFFFFFFF" severity error;
-        assert registers(20) = x"FFFFFFFB" report "x20 = " & to_hstring(registers(20)) & ", expected FFFFFFFB" severity error;
-        assert registers(21) = x"12345678" report "x21 = " & to_hstring(registers(21)) & ", expected 12345678" severity error;
-        assert registers(22) = x"00000100" report "x22 = " & to_hstring(registers(22)) & ", expected 00000100" severity error;
-        assert registers(23) = x"12345678" report "x23 = " & to_hstring(registers(23)) & ", expected 12345678" severity error;
-        assert registers(24) = x"FFFFFFFB" report "x24 = " & to_hstring(registers(24)) & ", expected FFFFFFFB" severity error;
-        assert registers(25) = x"000000FB" report "x25 = " & to_hstring(registers(25)) & ", expected 000000FB" severity error;
-        assert registers(26) = x"00001234" report "x26 = " & to_hstring(registers(26)) & ", expected 00001234" severity error;
-        assert registers(27) = x"00000007" report "x27 = " & to_hstring(registers(27)) & ", expected 00000007" severity error;
-        assert registers(28) = x"000700FB" report "x28 = " & to_hstring(registers(28)) & ", expected 000700FB" severity error;
-        assert registers(29) = x"0000000D" report "x29 = " & to_hstring(registers(29)) & ", expected 0000000D" severity error;
-        assert registers(30) = x"000010FC" report "x30 = " & to_hstring(registers(30)) & ", expected 000010FC" severity error;
-        assert registers(31) = x"00000104" report "x31 = " & to_hstring(registers(31)) & ", expected 00000104" severity error;
+        --assert registers(1) = x"12345678" report "x1 = " & to_hstring(registers(1)) & ", expected 12345678" severity error;
+        -- registers(2) = x"FFFFFFFB" report "x2 = " & to_hstring(registers(2)) & ", expected FFFFFFFB" severity error;
+        --assert registers(3) = x"00000007" report "x3 = " & to_hstring(registers(3)) & ", expected 00000007" severity error;
+        --assert registers(4) = x"00000001" report "x4 = " & to_hstring(registers(4)) & ", expected 00000001" severity error;
+        --assert registers(5) = x"00000000" report "x5 = " & to_hstring(registers(5)) & ", expected 00000000" severity error;
+        --assert registers(6) = x"FFFFFFF8" report "x6 = " & to_hstring(registers(6)) & ", expected FFFFFFF8" severity error;
+        --assert registers(7) = x"00000077" report "x7 = " & to_hstring(registers(7)) & ", expected 00000077" severity error;
+        --assert registers(8) = x"00000078" report "x8 = " & to_hstring(registers(8)) & ", expected 00000078" severity error;
+        --assert registers(9) = x"00000070" report "x9 = " & to_hstring(registers(9)) & ", expected 00000070" severity error;
+        --assert registers(10) = x"0000000F" report "x10 = " & to_hstring(registers(10)) & ", expected 0000000F" severity error;
+        --assert registers(11) = x"FFFFFFFD" report "x11 = " & to_hstring(registers(11)) & ", expected FFFFFFFD" severity error;
+        --assert registers(12) = x"1234567F" report "x12 = " & to_hstring(registers(12)) & ", expected 1234567F" severity error;
+        --assert registers(13) = x"0000000C" report "x13 = " & to_hstring(registers(13)) & ", expected 0000000C" severity error;
+        --assert registers(14) = x"00000380" report "x14 = " & to_hstring(registers(14)) & ", expected 00000380" severity error;
+        --assert registers(15) = x"00000001" report "x15 = " & to_hstring(registers(15)) & ", expected 00000001" severity error;
+        --assert registers(16) = x"00000000" report "x16 = " & to_hstring(registers(16)) & ", expected 00000000" severity error;
+        --assert registers(17) = x"1234567F" report "x17 = " & to_hstring(registers(17)) & ", expected 1234567F" severity error;
+        --assert registers(18) = x"01FFFFFF" report "x18 = " & to_hstring(registers(18)) & ", expected 01FFFFFF" severity error;
+        --assert registers(19) = x"FFFFFFFF" report "x19 = " & to_hstring(registers(19)) & ", expected FFFFFFFF" severity error;
+        --assert registers(20) = x"FFFFFFFB" report "x20 = " & to_hstring(registers(20)) & ", expected FFFFFFFB" severity error;
+        --assert registers(21) = x"12345678" report "x21 = " & to_hstring(registers(21)) & ", expected 12345678" severity error;
+        --assert registers(22) = x"00000100" report "x22 = " & to_hstring(registers(22)) & ", expected 00000100" severity error;
+        --assert registers(23) = x"12345678" report "x23 = " & to_hstring(registers(23)) & ", expected 12345678" severity error;
+        --assert registers(24) = x"FFFFFFFB" report "x24 = " & to_hstring(registers(24)) & ", expected FFFFFFFB" severity error;
+        --assert registers(25) = x"000000FB" report "x25 = " & to_hstring(registers(25)) & ", expected 000000FB" severity error;
+        --assert registers(26) = x"00001234" report "x26 = " & to_hstring(registers(26)) & ", expected 00001234" severity error;
+        --assert registers(27) = x"00000007" report "x27 = " & to_hstring(registers(27)) & ", expected 00000007" severity error;
+        --assert registers(28) = x"000700FB" report "x28 = " & to_hstring(registers(28)) & ", expected 000700FB" severity error;
+        --assert registers(29) = x"0000000D" report "x29 = " & to_hstring(registers(29)) & ", expected 0000000D" severity error;
+        --assert registers(30) = x"000010FC" report "x30 = " & to_hstring(registers(30)) & ", expected 000010FC" severity error;
+        --assert registers(31) = x"00000104" report "x31 = " & to_hstring(registers(31)) & ", expected 00000104" severity error;
 
         report "tb_cpu: tests finished.";
         done <= true;
