@@ -14,7 +14,11 @@ entity cpu is
 		
 		dbg_pc : out std_logic_vector(31 downto 0);
 		dbg_instr : out std_logic_vector(31 downto 0);
-		dbg_state : out sm_state
+		dbg_state : out sm_state;
+
+		dbg_rd_we    : out std_logic;
+		dbg_rd_addr  : out std_logic_vector(4 downto 0);
+		dbg_rd_value : out std_logic_vector(31 downto 0)
 	
 	);
 
@@ -183,9 +187,12 @@ begin
 		);
 		
 	-- Connect wires to port
-	dbg_pc    <= pc;
-	dbg_instr <= instr;
-	dbg_state <= state;
+	dbg_pc       <= pc;
+	dbg_instr    <= instr;
+	dbg_state    <= state;
+	dbg_rd_we    <= rd_w_enable;
+	dbg_rd_addr  <= rd;
+	dbg_rd_value <= rd_value; 
 	
 	-- Instruction fields
 	opcode <= instr(6 downto 0);
