@@ -1,33 +1,33 @@
 v 4
-file . "tb/tb_cpu.vhd" "846411bd4dac67a856a609268fa77066c824209a" "20261128153051.340":
-  entity tb_cpu at 1( 0) + 0 on 30;
-  architecture behavioural of tb_cpu at 9( 141) + 0 on 31;
-file . "src/cpu.vhd" "c27d8dbf15768a810d10018244e810997a6431a6" "20261128153051.336":
-  entity cpu at 1( 0) + 0 on 28;
-  architecture behavioural of cpu at 28( 531) + 0 on 29;
-file . "src/state_machine.vhd" "7108f6f274960ce940993ffb3e0fb2459567008f" "20261128153051.331":
-  entity state_machine at 1( 0) + 0 on 26;
-  architecture behavioural of state_machine at 25( 644) + 0 on 27;
-file . "src/d_mem.vhd" "16e76edf03aba08ffcb0c1417868cca74119a89a" "20261128153051.327":
-  entity data_memory at 1( 0) + 0 on 24;
-  architecture behavioural of data_memory at 21( 517) + 0 on 25;
-file . "src/i_mem.vhd" "00482a788d33aa321499872bd10da305213b2906" "20261128153051.323":
-  entity instruction_memory at 1( 0) + 0 on 22;
-  architecture behavioural of instruction_memory at 19( 462) + 0 on 23;
-file . "src/comparator.vhd" "d26b0c3d818fa312dd3e6afbdfe9e758b2723c60" "20261128153051.320":
-  entity comparator at 1( 0) + 0 on 20;
-  architecture behavioural of comparator at 19( 395) + 0 on 21;
-file . "src/control_unit.vhd" "92597be723989b6305cfebbf2eb3fa182c0932fd" "20261128153051.316":
-  entity control_unit at 1( 0) + 0 on 18;
-  architecture behavioural of control_unit at 36( 1132) + 0 on 19;
-file . "src/imm_gen.vhd" "d6f8d180d486f432dd55498353c59db8eea88a9d" "20261128153051.312":
-  entity immediate_generator at 1( 0) + 0 on 16;
-  architecture behavioural of immediate_generator at 16( 409) + 0 on 17;
-file . "src/reg_file.vhd" "91fdcdd976d596bbeacd3008998bcd63ee23498a" "20261128153051.308":
-  entity register_file at 1( 0) + 0 on 14;
-  architecture behavioural of register_file at 17( 686) + 0 on 15;
-file . "src/alu.vhd" "dcfcf38fdcbe8d9a015da5bf0fc80844dd157acf" "20261128153051.304":
-  entity alu at 1( 0) + 0 on 12;
-  architecture behavioural of alu at 18( 518) + 0 on 13;
-file . "src/rv_pkg.vhd" "9e0bf46050daf95042fedeb37a871f94478efe09" "20261128153051.297":
-  package rv_pkg at 1( 0) + 0 on 11;
+file . "src/rv_pkg.vhd" "9e0bf46050daf95042fedeb37a871f94478efe09" "20261128182618.957":
+  package rv_pkg at 1( 0) + 0 on 32;
+file . "src/alu.vhd" "dcfcf38fdcbe8d9a015da5bf0fc80844dd157acf" "20261128182618.974":
+  entity alu at 1( 0) + 0 on 33;
+  architecture behavioural of alu at 18( 518) + 0 on 34;
+file . "src/reg_file.vhd" "91fdcdd976d596bbeacd3008998bcd63ee23498a" "20261128182618.986":
+  entity register_file at 1( 0) + 0 on 35;
+  architecture behavioural of register_file at 17( 686) + 0 on 36;
+file . "src/imm_gen.vhd" "d6f8d180d486f432dd55498353c59db8eea88a9d" "20261128182618.997":
+  entity immediate_generator at 1( 0) + 0 on 37;
+  architecture behavioural of immediate_generator at 16( 409) + 0 on 38;
+file . "src/control_unit.vhd" "92597be723989b6305cfebbf2eb3fa182c0932fd" "20261128182619.009":
+  entity control_unit at 1( 0) + 0 on 39;
+  architecture behavioural of control_unit at 36( 1132) + 0 on 40;
+file . "src/comparator.vhd" "d26b0c3d818fa312dd3e6afbdfe9e758b2723c60" "20261128182619.019":
+  entity comparator at 1( 0) + 0 on 41;
+  architecture behavioural of comparator at 19( 395) + 0 on 42;
+file . "src/i_mem.vhd" "00482a788d33aa321499872bd10da305213b2906" "20261128182619.026":
+  entity instruction_memory at 1( 0) + 0 on 43;
+  architecture behavioural of instruction_memory at 19( 462) + 0 on 44;
+file . "src/d_mem.vhd" "16e76edf03aba08ffcb0c1417868cca74119a89a" "20261128182619.031":
+  entity data_memory at 1( 0) + 0 on 45;
+  architecture behavioural of data_memory at 21( 517) + 0 on 46;
+file . "src/state_machine.vhd" "7108f6f274960ce940993ffb3e0fb2459567008f" "20261128182619.036":
+  entity state_machine at 1( 0) + 0 on 47;
+  architecture behavioural of state_machine at 25( 644) + 0 on 48;
+file . "src/cpu.vhd" "02196917dad7ef9d6de0366a1f2ea61d9a36b054" "20261128182619.041":
+  entity cpu at 1( 0) + 0 on 49;
+  architecture behavioural of cpu at 28( 531) + 0 on 50;
+file . "tb/tb_cpu.vhd" "71c61d7ac7f58c1c9c92924f7741718e7acdacdf" "20261128182619.047":
+  entity tb_cpu at 1( 0) + 0 on 51;
+  architecture behavioural of tb_cpu at 9( 141) + 0 on 52;

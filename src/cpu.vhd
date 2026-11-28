@@ -59,6 +59,12 @@ architecture behavioural of cpu is
 	signal jal		  : std_logic;
 	signal jalr	      : std_logic;
 	
+	-- Latched control outputs
+	signal op1_sel_q    : op1_selector := OP1_RS1;
+	signal op2_sel_q    : std_logic := '0';
+	signal op_alu_q     : alu_op := ALU_ADD;
+	signal funct3_q     : std_logic_vector(2 downto 0) := (others => '0');
+
 	-- imm_gen and reg_file outputs
 	signal immediate : std_logic_vector(31 downto 0);
 	signal rs1_value : std_logic_vector(31 downto 0);
@@ -152,7 +158,7 @@ begin
 		port map(
 			rs1         => rs1_q,
 			rs2         => rs2_q,
-			funct3      => funct3,
+			funct3      => funct3_q,
 			branch_cond => branch_cond
 		);
 		
@@ -160,7 +166,7 @@ begin
 		port map(
 			a  	   => alu_a,
 			b      => alu_b,
-			op_alu => op_alu,
+			op_alu => op_alu_q,
 			res    => alu_preresult
 		);
 		
@@ -170,7 +176,7 @@ begin
 			addr     => alu_preresult(13 downto 0),
 			din      => rs2_q,
 			w_enable => mem_w_enable,
-			funct3   => funct3,
+			funct3   => funct3_q,
 			dout     => mem_out
 		);
 		
@@ -206,8 +212,8 @@ begin
 	next_pc <= std_logic_vector(unsigned(pc) + 4);
 	
 	-- ALU mux
-	with op1_sel select alu_a <= (others => '0') when OP1_ZERO, pc when OP1_PC, rs1_q when OP1_RS1;
-	alu_b <= rs2_q when op2_sel = '0' else imm_q;
+	with op1_sel_q select alu_a <= (others => '0') when OP1_ZERO, pc when OP1_PC, rs1_q when OP1_RS1;
+	alu_b <= rs2_q when op2_sel_q = '0' else imm_q;
 	
 	-- rd_value
 	with mem_to_reg select rd_value <= alu_res_q when WB_ALU, mem_out when WB_MEM, next_pc when WB_PC;
@@ -228,6 +234,11 @@ begin
 					rs1_q <= rs1_value;
 					rs2_q <= rs2_value;
 					imm_q <= immediate;
+					-- Latch control unit and funct3 signals to save time
+					op1_sel_q <= op1_sel;
+					op2_sel_q <= op2_sel;
+					op_alu_q  <= op_alu;
+					funct3_q  <= funct3;
 				end if;
 				if state = S_EXECUTE then
 					alu_res_q 	  <= alu_preresult;
